@@ -8,7 +8,6 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./src/setupTests.ts",
     coverage: {
-      provider: 'c8', // ou 'istanbul'
       reporter: ['text', 'lcov'],
       threshold: {
         lines: 75,
