@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
+import { useCart } from "../../hooks/useCart";
 import styles from "./ProductCard.module.scss";
-import { Product } from "./types";
+import type { Product } from "./types";
 
 interface ProductCardProps {
     product: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-    const [inCart, setInCart] = useState(false);
+    const { addItem, removeItem, isInCart } = useCart();
+
+    const inCart = isInCart(product.id);
 
     const handleToggleCart = () => {
-        setInCart((prev) => !prev);
+        if (inCart) removeItem(product.id);
+        else addItem(product.id);
     };
 
     return (
