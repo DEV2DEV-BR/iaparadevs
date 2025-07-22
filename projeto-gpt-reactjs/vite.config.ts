@@ -8,6 +8,7 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./src/setupTests.ts",
     coverage: {
+      enabled: true,
       reporter: ['text', 'lcov'],
       threshold: {
         lines: 75,
