@@ -1,69 +1,121 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🛒 E-commercer AI
 
-Currently, two official plugins are available:
+Aplicação **frontend** desenvolvida com **React 19 + TypeScript + Vite 7**, simulando uma pequena loja virtual. O sistema exibe uma lista de produtos e permite ao usuário **adicionar ou remover itens do carrinho**, com atualização em tempo real do ícone de notificação.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🧠 Contexto do Projeto
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Este projeto foi criado para explorar boas práticas com:
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Componentização reutilizável** no React
+- **Gerenciamento de estado global com [Constate](https://github.com/diegohaz/constate)** (wrapper moderno para Context API)
+- **Persistência de estado com `localStorage`**
+- **Testes com Vitest + Testing Library**
+- Código modular e organizado com **SASS Modules**
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📦 Principais Componentes
+
+### 🔹 ProductCard
+> `src/components/ProductCard/`
+
+Renderiza o cartão individual de cada produto, com imagem, descrição e botão de ação (adicionar/remover do carrinho). Os dados são mockados e manipulados via hook.
+
+### 🔹 CartIcon
+> `src/components/CartIcon/`
+
+Ícone do carrinho com contador. Exibe o número de itens no carrinho em tempo real. Conectado ao hook `useCart`.
+
+### 🔹 Header
+> `src/components/Header/`
+
+Cabeçalho fixo do site que exibe o nome do sistema e o `CartIcon`.
+
+---
+
+## 🧰 Hooks Customizados
+
+### 🔸 useCart
+> `src/hooks/useCart.ts`
+
+Hook responsável por centralizar o estado do carrinho. Utiliza **Constate** para criar um provider e hook especializado.
+
+### 🔸 useLocalStorageState
+> `src/hooks/useLocalStorageState.tsx`
+
+Hook reutilizável que sincroniza o estado com o `localStorage`, garantindo persistência mesmo ao atualizar a página.
+
+---
+
+## 🧪 Testes
+
+O projeto utiliza:
+
+- [`Vitest`](https://vitest.dev/) como test runner
+- [`Testing Library`](https://testing-library.com/) para testes de UI
+- [`jsdom`](https://github.com/jsdom/jsdom) como ambiente de simulação do navegador
+
+### Comandos disponíveis
+
+```bash
+# Rodar todos os testes
+npm run test
+
+# Rodar com cobertura
+npm run test:coverage
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Os testes já estão implementados para os principais componentes e hooks (`ProductCard`, `CartIcon`, `useCart`, etc).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## ▶️ Como executar o projeto
+
+### ✅ Pré-requisitos
+
+- Node.js `>= 16`
+- npm ou yarn
+
+### 🚀 Passos para rodar localmente
+
+```bash
+# Instalar dependências
+npm install
+
+# Rodar em modo desenvolvimento
+npm run dev
+
+# Acessar no navegador
+http://localhost:5173
 ```
+
+---
+
+## 📁 Estrutura de Pastas
+
+```bash
+src/
+├── components/         # Componentes visuais reutilizáveis
+│   ├── ProductCard/
+│   ├── CartIcon/
+│   └── Header/
+├── hooks/              # Hooks customizados (useCart, useLocalStorage)
+├── utils/              # Funções auxiliares (se necessário)
+├── App.tsx             # Componente raiz
+├── main.tsx            # Entrada principal da aplicação
+└── vite-env.d.ts       # Tipagens do Vite
+```
+
+---
+
+## 💡 Melhorias Futuras
+
+- Paginação ou lazy loading para lista de produtos
+- Filtros por categoria/preço
+- Integração com API externa para carregar produtos reais
+- Animações com Framer Motion
+- Deploy via Vercel, Netlify ou GitHub Pages
+- Adição de testes E2E com Cypress ou Playwright
